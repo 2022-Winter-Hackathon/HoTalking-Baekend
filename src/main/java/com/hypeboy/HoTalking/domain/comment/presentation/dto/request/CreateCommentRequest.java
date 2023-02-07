@@ -2,11 +2,12 @@ package com.hypeboy.HoTalking.domain.comment.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class CreateCommentRequest {
 
     @NotBlank

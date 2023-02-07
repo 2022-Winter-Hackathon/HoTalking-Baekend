@@ -17,10 +17,10 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
-    private String m_id;
+    private String uniqueId;
 
     private int grade;
 
@@ -44,8 +44,8 @@ public class Member {
     private List<Comment> commentList;
 
     @Builder
-    public Member(String m_id, int grade, int number, String name, String profileImage, String email, Role role, int room, List<Post> postList, List<Comment> commentList) {
-        this.m_id = m_id;
+    public Member(String uniqueId, int grade, int number, String name, String profileImage, String email, Role role, int room, List<Post> postList, List<Comment> commentList) {
+        this.uniqueId = uniqueId;
         this.grade = grade;
         this.number = number;
         this.room = room;
@@ -55,6 +55,24 @@ public class Member {
         this.role = role;
         this.postList = postList;
         this.commentList = commentList;
+    }
+
+    public void addPost(Post post) {
+        post.setAuthor(this);
+        postList.add(post);
+    }
+
+    public void removePost(Post post) {
+        postList.remove(post);
+    }
+
+    public void addComment(Comment comment) {
+        comment.setAuthor(this);
+        commentList.add(comment);
+    }
+
+    public void removeComment(Comment comment) {
+        commentList.remove(comment);
     }
 
 }

@@ -6,13 +6,11 @@ import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
 import com.hypeboy.HoTalking.domain.post.Repository.PostRepository;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
-import com.hypeboy.HoTalking.global.error.exception.PostNotFoundException;
+import com.hypeboy.HoTalking.domain.post.exception.PostNotFoundException;
 import com.hypeboy.HoTalking.global.lib.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -37,12 +35,11 @@ public class PostService {
         if(request.getFile() != null) {
             post.setFile(fileService.registerFile(request.getFile()));
         }
-        postRepository.save(post);
+        final Post savedPost = postRepository.save(post);
 
         Member member = jwtUtil.getMemberByToken(request.getToken());
 
-        List<Post> memberPosts = member.getPostList();
-        memberPosts.add(post);
+        member.addPost(savedPost);
         memberRepository.save(member);
 
         return ResponseEntity.ok("게시글 저장 되었습니다");
@@ -55,8 +52,7 @@ public class PostService {
 
         Member member = post.getAuthor();
 
-        List<Post> memberPosts = member.getPostList();
-        memberPosts.remove(post);
+        member.removePost(post);
         memberRepository.save(member);
 
         postRepository.deleteById(id);

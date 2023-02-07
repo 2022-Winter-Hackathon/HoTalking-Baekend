@@ -14,7 +14,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping(value = "/create")
-    public Response createComment(CreateCommentRequest request) {
+    public Response createComment(@RequestBody CreateCommentRequest request) {
         return commentService.createComment(request);
     }
 

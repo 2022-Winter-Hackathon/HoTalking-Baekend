@@ -14,11 +14,11 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@RequestBody CreatePostRequest request) throws Exception {
+    public ResponseEntity<?> createPost(CreatePostRequest request) throws Exception {
         return postService.createPost(request);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         return postService.deletePost(id);
     }

@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.global.restTemplate;
+package com.hypeboy.HoTalking.global.config.restTemplate;
 
 import com.hypeboy.HoTalking.global.error.exception.dauth.InternalServerException;
 import com.hypeboy.HoTalking.global.error.exception.dauth.TamperedCodeException;

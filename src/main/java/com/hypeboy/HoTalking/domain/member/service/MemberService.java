@@ -4,7 +4,6 @@ import com.hypeboy.HoTalking.domain.auth.presentation.dto.api.DOpenApiDto;
 import com.hypeboy.HoTalking.domain.auth.presentation.dto.api.DodamInfoDto;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
-import com.hypeboy.HoTalking.domain.member.exception.MemberExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,7 @@ public class MemberService {
         DodamInfoDto data = dOpenApiDto.getDodamInfoData();
         Member member = DodamInfoDto.toEntity(data);
         if(isExisted(member)) {
-            throw new MemberExistException();
+            return member;
         }
 
         return memberRepository.save(member);

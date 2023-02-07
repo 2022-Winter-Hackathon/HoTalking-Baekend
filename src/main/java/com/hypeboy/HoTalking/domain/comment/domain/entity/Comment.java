@@ -2,7 +2,7 @@ package com.hypeboy.HoTalking.domain.comment.domain.entity;
 
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
-import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
+import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class Comment extends BaseTimeEntity {
 

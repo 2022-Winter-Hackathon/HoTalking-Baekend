@@ -10,7 +10,7 @@ import com.hypeboy.HoTalking.domain.member.service.MemberService;
 import com.hypeboy.HoTalking.global.config.properties.AppProperties;
 import com.hypeboy.HoTalking.global.lib.jwt.JwtType;
 import com.hypeboy.HoTalking.global.lib.jwt.JwtUtil;
-import com.hypeboy.HoTalking.global.restTemplate.RestTemplateConfig;
+import com.hypeboy.HoTalking.global.config.restTemplate.RestTemplateConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -59,7 +59,7 @@ public class AuthService {
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         DOpenApiDto data = getCodeToDodamInfo(loginRequestDto.getCode());
         Member mem = memberService.save(data);
-        String memberId = mem.getM_id();
+        String memberId = mem.getUniqueId();
         return LoginResponseDto.builder()
                 .token(jwtUtil.generateToken(memberId, JwtType.ACCESS_TOKEN))
                 .build();

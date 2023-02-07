@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DodamInfoDto implements Serializable {
 
-    private String m_id;
+    private String uniqueId;
     private int grade;
     private int room;
     private int number;
@@ -30,7 +30,7 @@ public class DodamInfoDto implements Serializable {
     private List<Comment> commentList;
 
     public DodamInfoDto(DodamInfoDto data) {
-        this.m_id = data.getM_id();
+        this.uniqueId = data.getUniqueId();
         this.grade = data.getGrade();
         this.room = data.getRoom();
         this.number = data.getNumber();
@@ -45,7 +45,7 @@ public class DodamInfoDto implements Serializable {
     public static Member toEntity(DodamInfoDto data) {
         Role role = data.accessLevel==2?Role.TEACHER:data.grade>1?Role.SENIOR:Role.JUNIOR;
         return Member.builder()
-                .m_id(data.getM_id())
+                .uniqueId(data.getUniqueId())
                 .name(data.getName())
                 .grade(data.getGrade())
                 .number(data.getNumber())
