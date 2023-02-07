@@ -1,5 +1,6 @@
 package com.hypeboy.HoTalking.domain.image;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,16 +12,16 @@ import java.util.Date;
 import java.util.List;
 
 @Component
+@Slf4j
 public class ImageHandler {
-    public List<Image> parseFileInfo(
-            Long postId,
+    public List<Image> parseFileInfo(Long postId,
             List<MultipartFile> multipartFiles
     ) throws Exception {
         // 반환을 할 파일 리스트
         List<Image> fileList = new ArrayList<>();
 
         // 파일이 빈 것이 들어오면 빈 것을 반환
-        if (multipartFiles.isEmpty()) {
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
             return fileList;
         }
 
@@ -62,6 +63,8 @@ public class ImageHandler {
                         originalFileExtension = ".png";
                     } else if (contentType.contains("image/gif")) {
                         originalFileExtension = ".gif";
+                    } else if (contentType.contains("image/jfif")) {
+                        originalFileExtension = ".jfif";
                     }
                     // 다른 파일 명이면 아무 일 하지 않는다
                     else {

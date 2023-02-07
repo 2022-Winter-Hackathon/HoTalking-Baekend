@@ -1,19 +1,22 @@
-package com.hypeboy.HoTalking.domain.post.entity.dto.request;
+package com.hypeboy.HoTalking.domain.post.entity.dto.request.ro;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
-public class CreatePostRequest {
+@AllArgsConstructor
+public class PostRo {
 
     private String title;
 
+    private String author;
+
     private String content;
 
-    private List<MultipartFile> files;
+    private List<MultipartFile> file;
+
+
 }

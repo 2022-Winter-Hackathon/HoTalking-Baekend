@@ -1,21 +1,17 @@
 package com.hypeboy.HoTalking.domain.image;
 
+import com.hypeboy.HoTalking.domain.post.entity.Post;
 import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Entity
 public class Image extends BaseTimeEntity {
     @Id
@@ -33,4 +29,11 @@ public class Image extends BaseTimeEntity {
 
     private long fileSize;
 
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }
