@@ -3,15 +3,19 @@ package com.hypeboy.HoTalking.domain.member.domain.entity;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Member {
 
@@ -37,25 +41,13 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "author")
-    private List<Post> postList;
+    @Builder.Default
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    private Set<Post> postList = new HashSet<>();
 
-    @OneToMany(mappedBy = "author")
-    private List<Comment> commentList;
-
-    @Builder
-    public Member(String uniqueId, int grade, int number, String name, String profileImage, String email, Role role, int room, List<Post> postList, List<Comment> commentList) {
-        this.uniqueId = uniqueId;
-        this.grade = grade;
-        this.number = number;
-        this.room = room;
-        this.name = name;
-        this.profileImage = profileImage;
-        this.email = email;
-        this.role = role;
-        this.postList = postList;
-        this.commentList = commentList;
-    }
+    @Builder.Default
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    private Set<Comment> commentList = new HashSet<>();
 
     public void addPost(Post post) {
         post.setAuthor(this);

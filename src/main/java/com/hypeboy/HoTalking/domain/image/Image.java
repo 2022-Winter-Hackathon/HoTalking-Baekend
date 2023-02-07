@@ -1,7 +1,8 @@
 package com.hypeboy.HoTalking.domain.image;
 
 import com.hypeboy.HoTalking.domain.post.entity.Post;
-import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
+
+import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Getter
@@ -52,8 +53,8 @@ public class DodamInfoDto implements Serializable {
                 .room(data.getRoom())
                 .profileImage(data.getProfileImage())
                 .role(role)
-                .postList(data.postList)
-                .commentList(data.commentList)
+                .postList(new HashSet<>((data.postList == null) ? new HashSet<>() : data.postList))
+                .commentList(new HashSet<>((data.commentList == null) ? new HashSet<>() : data.commentList))
                 .build();
     }
 

@@ -8,6 +8,7 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,7 @@ public class JwtUtil {
         return builder.compact();
     }
 
+    @Transactional(readOnly = true)
     public Member validate(String token) {
         Claims claims = parse(token);
         return memberRepository.findByUniqueId(claims.get("id", String.class))

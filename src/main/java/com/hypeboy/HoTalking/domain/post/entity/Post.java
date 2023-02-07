@@ -1,14 +1,14 @@
 package com.hypeboy.HoTalking.domain.post.entity;
 
+import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.image.Image;
-import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
+import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
+import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
