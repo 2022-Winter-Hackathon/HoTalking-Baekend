@@ -24,7 +24,7 @@ public class Post extends BaseTimeEntity {
 
     private String title;
 
-    private Role role;
+    private String role;
 
     private String content;
 

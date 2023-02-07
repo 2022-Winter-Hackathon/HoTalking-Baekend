@@ -45,7 +45,7 @@ public class PostService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .author(member)
-                .role(member.getRole())
+                .role(member.getRole().getKey())
                 .build());
         final List<MultipartFile> files = request.getFiles();
         System.out.println(files);
@@ -55,7 +55,7 @@ public class PostService {
         }
 
         final Post savedPost = postRepository.save(post);
-
+        System.out.println("!");
         member.addPost(savedPost);
         memberRepository.save(member);
         return ResponseEntity.ok().build();
@@ -67,9 +67,8 @@ public class PostService {
         return ResponseEntity.ok("삭제 되었습니다");
     }
 
-    public List<PostListRo> getPostAndAllImages(String role, Integer page) {
-        Pageable pageable = PageRequest.of(page-1, 6, Sort.Direction.ASC, "id");
-        return postRepository.findAllByRole(pageable, role)
+    public List<PostListRo> findAll() {
+        return postRepository.findAll()
                 .stream()
                 .map(PostListRo::new)
                 .collect(Collectors.toList());

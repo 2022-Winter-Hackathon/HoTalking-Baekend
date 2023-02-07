@@ -8,8 +8,11 @@ public class PostListRo {
     private Long id;
     private String title;
 
+    private String author;
+
     public PostListRo(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
+        this.author = post.getAuthor().getName();
     }
 }
