@@ -1,6 +1,5 @@
 package com.hypeboy.HoTalking.domain.issue.entity;
 
-import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

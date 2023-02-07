@@ -23,7 +23,9 @@ public class Post extends BaseTimeEntity {
 
     private String title;
 
-    private String author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member author;
 
     private String content;
 
@@ -31,6 +33,18 @@ public class Post extends BaseTimeEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    public void addComment(Comment comment) {
+        comment.setPost(this);
+        comments.add(comment);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+    }
+    
     public void addImage(Image image) {
         image.setPost(this);
         getImages().add(image);

@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.global.entity;
+package com.hypeboy.HoTalking.global.jpa;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

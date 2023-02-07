@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.global.restTemplate;
+package com.hypeboy.HoTalking.global.config.restTemplate;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

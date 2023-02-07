@@ -31,7 +31,7 @@ public class MemberResponseDto {
 
     public MemberResponseDto(Member member) {
         this.userId = member.getId();
-        this.m_id = member.getM_id();
+        this.m_id = member.getUniqueId();
         this.grade = member.getGrade();
         this.room = member.getRoom();
         this.number = member.getNumber();

@@ -24,7 +24,8 @@ public class JwtUtil {
 
     private final MemberRepository memberRepository;
 
-    public String generateToken(String m_id, JwtType jwtType) {
+    public String generateToken(String uniqueId, JwtType jwtType) {
+        System.out.println(uniqueId);
         Date currentDate = new Date();
         Calendar expiredDate = Calendar.getInstance();
         expiredDate.setTime(currentDate);
@@ -41,7 +42,7 @@ public class JwtUtil {
         header.put("alg", "HS256");
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", m_id);
+        claims.put("id", uniqueId);
 
         JwtBuilder builder = Jwts.builder()
                 .setHeader(header)
@@ -54,12 +55,13 @@ public class JwtUtil {
 
     public Member validate(String token) {
         Claims claims = parse(token);
-        return memberRepository.findById(claims.get("id", String.class))
+        return memberRepository.findByUniqueId(claims.get("id", String.class))
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
     }
 
     public Claims parse(String token) {
-        return Jwts.parser().setSigningKey(jwtProperties.getSECRET_KEY()).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(new SecretKeySpec(jwtProperties.getSECRET_KEY().getBytes(), signatureAlgorithm.getJcaName()))
+                .parseClaimsJws(token).getBody();
     }
 
     public String extract(HttpServletRequest request, String type) {
@@ -77,7 +79,7 @@ public class JwtUtil {
     }
 
     public Member getMemberByToken(String token) {
-        return memberRepository.findById(parse(token).get("id", String.class))
+        return memberRepository.findByUniqueId(parse(token).get("id", String.class))
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
     }
 

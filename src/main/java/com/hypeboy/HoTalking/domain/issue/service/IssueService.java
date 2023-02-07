@@ -4,14 +4,9 @@ import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.ro.IssueRo;
 import com.hypeboy.HoTalking.domain.issue.repository.IssueRepository;
-import com.hypeboy.HoTalking.global.error.exception.IssueNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +33,5 @@ public class IssueService {
         issueRepository.deleteById(id);
         return ResponseEntity.ok("성공적으로 삭제 되었습니다");
     }
-
 
 }
