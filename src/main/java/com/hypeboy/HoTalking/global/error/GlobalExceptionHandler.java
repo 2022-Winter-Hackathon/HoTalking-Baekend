@@ -3,6 +3,7 @@ package com.hypeboy.HoTalking.global.error;
 import com.hypeboy.HoTalking.global.response.ResponseError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,6 +26,15 @@ public class GlobalExceptionHandler {
                 .msg(e.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseError);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<ResponseError> handleCustomException(MethodArgumentNotValidException e){
+        final ResponseError responseError = ResponseError.builder()
+                .status(HttpStatus.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .msg(e.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
     }
 
 }
