@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ResponseError> handleCustomException(MethodArgumentNotValidException e){
         final ResponseError responseError = ResponseError.builder()
-                .status(HttpStatus.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .status(HttpStatus.BAD_REQUEST)
                 .msg(e.getMessage())
                 .build();
         return ResponseEntity.badRequest().body(responseError);
