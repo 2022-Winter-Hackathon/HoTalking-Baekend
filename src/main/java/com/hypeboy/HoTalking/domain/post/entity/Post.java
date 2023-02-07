@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.domain.post;
+package com.hypeboy.HoTalking.domain.post.entity;
 
 import com.hypeboy.HoTalking.domain.file.File;
 import lombok.AllArgsConstructor;
@@ -28,6 +28,5 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "file_id")
     private File file;
-
 
 }

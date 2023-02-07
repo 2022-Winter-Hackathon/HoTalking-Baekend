@@ -1,13 +1,12 @@
 package com.hypeboy.HoTalking.domain.file;
 
-import com.hypeboy.HoTalking.domain.post.Post;
+import com.hypeboy.HoTalking.domain.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Builder
 @Getter
