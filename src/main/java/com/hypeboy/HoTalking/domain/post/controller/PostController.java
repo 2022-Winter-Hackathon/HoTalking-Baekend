@@ -1,6 +1,8 @@
 package com.hypeboy.HoTalking.domain.post.controller;
 
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
+import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostListRo;
+import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
 import com.hypeboy.HoTalking.domain.post.service.PostService;
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;
@@ -24,7 +26,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @AuthToken
+    //@AuthToken
     @PostMapping("/create")
     public ResponseEntity<?> createPost(@RequestParam(required = false) List<MultipartFile> files,
             @RequestParam String title, @RequestParam String content,
@@ -33,9 +35,9 @@ public class PostController {
         return postService.createPost(new CreatePostRequest(title, content, files), member);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getAllPostImages(@PathVariable long id) {
-        return postService.findAllImages(id);
+    @GetMapping("/list/{page}")
+    public ResponseEntity<?> getAllPostImages(@PathVariable long page) {
+        return postService.findAllImages(page);
     }
 
     @GetMapping(value = "/images/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
@@ -43,9 +45,19 @@ public class PostController {
         return postService.getImage(id);
     }
 
-    @AuthToken
+    //@AuthToken
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         return postService.deletePost(id);
+    }
+
+    @GetMapping("/list")
+    public List<PostListRo> findAll(@RequestParam("page") Integer page) {
+        return postService.getPostAndAllImages(page);
+    }
+
+    @GetMapping("")
+    private PostRo getPostById(@RequestParam Long id) {
+        return postService.getPostById(id);
     }
 }

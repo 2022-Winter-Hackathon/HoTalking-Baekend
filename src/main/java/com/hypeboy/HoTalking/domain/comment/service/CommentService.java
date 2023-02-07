@@ -29,13 +29,13 @@ public class CommentService {
 
     public Response createComment(CreateCommentRequest request) {
 
-        Member member = jwtUtil.getMemberByToken(request.getToken());
+        //Member member = jwtUtil.getMemberByToken(request.getToken());
 
         Post post = postRepository.findById(request.getPost_id())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
         Comment comment = Comment.builder()
-                .author(member)
+         //       .author(member)
                 .post(post)
                 .content(request.getContent())
                 .build();
@@ -44,8 +44,8 @@ public class CommentService {
         post.addComment(comment);
         postRepository.save(post);
 
-        member.addComment(comment);
-        memberRepository.save(member);
+        //member.addComment(comment);
+        //memberRepository.save(member);
 
         return new Response(
                 HttpStatus.OK,

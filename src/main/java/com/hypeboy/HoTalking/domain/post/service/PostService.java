@@ -1,5 +1,8 @@
 package com.hypeboy.HoTalking.domain.post.service;
 
+import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
+import com.hypeboy.HoTalking.domain.comment.domain.repository.CommentRepository;
+import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.ro.CommentRo;
 import com.hypeboy.HoTalking.domain.image.ImageService;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
@@ -7,8 +10,13 @@ import com.hypeboy.HoTalking.domain.post.Repository.PostRepository;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
 
+import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostListRo;
+import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +34,8 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+
+    private final CommentRepository commentRepository;
     private final ImageService imageService;
 
     @Transactional
@@ -52,6 +63,31 @@ public class PostService {
     public ResponseEntity<?> deletePost(Long id) {
         postRepository.deleteById(id);
         return ResponseEntity.ok("삭제 되었습니다");
+    }
+
+    public List<PostListRo> getPostAndAllImages(Integer page) {
+        Pageable pageable = PageRequest.of(page-1, 6, Sort.Direction.ASC, "id");
+        return postRepository.findAll(pageable)
+                .stream()
+                .map(PostListRo::new)
+                .collect(Collectors.toList());
+    }
+
+    public PostRo getPostById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow();
+
+        List<CommentRo> comments = commentRepository.findByPost_Id(id)
+                .stream().map(it -> new CommentRo(it.getId(), it.getContent()))
+                .toList();
+
+        return PostRo.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .author(null)
+                .comments(comments)
+                .build();
+
     }
 
     public ResponseEntity<?> findAllImages(final long id) {
