@@ -4,11 +4,13 @@ import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.ro.IssueRo;
 import com.hypeboy.HoTalking.domain.issue.repository.IssueRepository;
+import com.hypeboy.HoTalking.global.error.exception.IssueNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,12 +27,10 @@ public class IssueService {
         return ResponseEntity.ok().body("성공적으로 저장되었습니다");
     }
 
-    public List<IssueRo> getIssue() {
-        List<Issue> issues = issueRepository.findAll();
+    public IssueRo getIssue() {
+        Issue issueName = issueRepository.findById(1L).orElseThrow();
 
-        List<IssueRo> issueRo = issues.stream().map(it -> new IssueRo(it.getIssueName())).collect(Collectors.toList());
-
-        return issueRo;
+        return new IssueRo(issueName.getIssueName());
     }
 
 

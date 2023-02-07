@@ -21,6 +21,4 @@ public class AddIssueRequest {
     @NotBlank(message = "이슈 내용이 필요합니다")
     private String issueName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String period;
 }

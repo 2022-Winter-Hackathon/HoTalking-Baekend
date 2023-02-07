@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/issue")
+    @RequestMapping("/api/issue")
 public class IssueController {
 
     private final IssueService issueService;
@@ -23,7 +23,7 @@ public class IssueController {
     }
 
     @GetMapping("/get")
-    public List<IssueRo> getIssue() {
+    public IssueRo getIssue() {
         return issueService.getIssue();
     }
 

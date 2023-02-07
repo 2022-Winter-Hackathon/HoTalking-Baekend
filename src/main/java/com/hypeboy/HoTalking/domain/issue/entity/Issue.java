@@ -1,5 +1,6 @@
 package com.hypeboy.HoTalking.domain.issue.entity;
 
+import com.hypeboy.HoTalking.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,8 +24,4 @@ public class Issue {
 
     private String issueName;
 
-    @Builder
-    public Issue(String issueName) {
-        this.issueName = issueName;
-    }
 }
