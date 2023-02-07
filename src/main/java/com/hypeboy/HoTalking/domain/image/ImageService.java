@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,9 +20,9 @@ public class ImageService {
     private final ImageHandler imageHandler;
 
     @Transactional
-    public void addImage(Image image, List<MultipartFile> files, Post post) throws Exception{
+    public void addImage(List<MultipartFile> files, Post post) throws Exception{
         // 파일을 저장하고 그 Image 에 대한 list 를 가지고 있는다
-        List<Image> list = imageHandler.parseFileInfo(image.getId(), files);
+        List<Image> list = imageHandler.parseFileInfo(files);
         if (list == null || list.isEmpty()) {
             throw new RuntimeException();
         }
@@ -36,11 +35,28 @@ public class ImageService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public File getImage(long id) {
+        Image image = findBoard(id);
+        final File imageFile = new File(new File("").getAbsolutePath() + "/" + image.getStoredFileName());
+
+        log.info("{}", imageFile);
+        if (!imageFile.exists()) {
+            throw new IllegalStateException();
+        }
+
+        return imageFile;
+    }
+
+
+
+
     public List<Image> findBoards() {
         return imageRepository.findAll();
     }
 
-    public Optional<Image> findBoard(Long id) {
-        return imageRepository.findById(id);
+    public Image findBoard(Long id) {
+        return imageRepository.findById(id)
+                .orElseThrow();
     }
 }

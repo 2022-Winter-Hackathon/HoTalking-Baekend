@@ -14,8 +14,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class ImageHandler {
-    public List<Image> parseFileInfo(Long postId,
-            List<MultipartFile> multipartFiles
+    public List<Image> parseFileInfo(List<MultipartFile> multipartFiles
     ) throws Exception {
         // 반환을 할 파일 리스트
         List<Image> fileList = new ArrayList<>();
@@ -35,7 +34,8 @@ public class ImageHandler {
         }
 
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String absolutePath = new File("").getAbsolutePath() + "/";
+        System.out.println(absolutePath);
 
         // 경로를 지정하고 그곳에다가 저장
         String path = "images/" + current_date;
@@ -75,7 +75,6 @@ public class ImageHandler {
                 String new_file_name = System.nanoTime() + originalFileExtension;
                 // 생성 후 리스트에 추가
                 Image board = Image.builder()
-                        .boardIdx(postId)
                         .originalFileName(multipartFile.getOriginalFilename())
                         .storedFileName(path + "/" + new_file_name)
                         .fileSize(multipartFile.getSize())
