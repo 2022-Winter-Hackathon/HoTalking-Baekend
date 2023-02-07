@@ -19,4 +19,8 @@ public class IssueController {
         return issueService.addIssue(request);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteIssue(@PathVariable ("id") Long id) {
+        return issueService.deleteIssue(id);
+    }
 }

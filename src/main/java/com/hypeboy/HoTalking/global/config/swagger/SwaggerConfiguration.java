@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("2023 winter Hackathon   ")
+                .title("2023 winter Hackathon")
                 .version("1.0.0")
                 .description("swagger")
                 .build();
