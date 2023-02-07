@@ -2,7 +2,7 @@ package com.hypeboy.HoTalking.global.interceptor;
 
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;
-import com.hypeboy.HoTalking.global.error.exception.NoTokenException;
+import com.hypeboy.HoTalking.global.error.exception.token.NoTokenException;
 import com.hypeboy.HoTalking.global.lib.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

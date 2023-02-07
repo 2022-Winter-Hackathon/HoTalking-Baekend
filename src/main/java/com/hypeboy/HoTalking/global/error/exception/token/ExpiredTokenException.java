@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.global.error.exception;
+package com.hypeboy.HoTalking.global.error.exception.token;
 
 import com.hypeboy.HoTalking.global.error.CustomException;
 import com.hypeboy.HoTalking.global.error.ExceptionCode;

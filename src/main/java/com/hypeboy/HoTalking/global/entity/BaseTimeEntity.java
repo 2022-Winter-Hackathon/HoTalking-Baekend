@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
+
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm")
     private LocalDateTime createdDate;
@@ -21,4 +22,5 @@ public class BaseTimeEntity {
     @LastModifiedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm")
     private LocalDateTime modifiedDate;
+
 }

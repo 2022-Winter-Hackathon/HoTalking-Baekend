@@ -53,9 +53,13 @@ public class JwtUtil {
     }
 
     public Member validate(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtProperties.getSECRET_KEY()).parseClaimsJws(token).getBody();
+        Claims claims = parse(token);
         return memberRepository.findById(claims.get("id", String.class))
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+    }
+
+    public Claims parse(String token) {
+        return Jwts.parser().setSigningKey(jwtProperties.getSECRET_KEY()).parseClaimsJws(token).getBody();
     }
 
     public String extract(HttpServletRequest request, String type) {
@@ -70,6 +74,11 @@ public class JwtUtil {
         }
 
         return Strings.EMPTY;
+    }
+
+    public Member getMemberByToken(String token) {
+        return memberRepository.findById(parse(token).get("id", String.class))
+                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
     }
 
 }

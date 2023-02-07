@@ -1,12 +1,16 @@
 package com.hypeboy.HoTalking.domain.auth.presentation.dto.api;
 
+import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
+import com.hypeboy.HoTalking.domain.post.entity.Post;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,6 +25,10 @@ public class DodamInfoDto implements Serializable {
     private String profileImage;
     private int accessLevel;
 
+    private List<Post> postList;
+
+    private List<Comment> commentList;
+
     public DodamInfoDto(DodamInfoDto data) {
         this.m_id = data.getM_id();
         this.grade = data.getGrade();
@@ -30,10 +38,12 @@ public class DodamInfoDto implements Serializable {
         this.email = data.getEmail();
         this.profileImage = data.getProfileImage();
         this.accessLevel = data.getAccessLevel();
+        this.postList = new ArrayList<>();
+        this.commentList = new ArrayList<>();
     }
 
     public static Member toEntity(DodamInfoDto data) {
-        Role role = Role.JUNIOR;
+        Role role = data.accessLevel==2?Role.TEACHER:data.grade>1?Role.SENIOR:Role.JUNIOR;
         return Member.builder()
                 .m_id(data.getM_id())
                 .name(data.getName())
@@ -42,6 +52,8 @@ public class DodamInfoDto implements Serializable {
                 .room(data.getRoom())
                 .profileImage(data.getProfileImage())
                 .role(role)
+                .postList(data.postList)
+                .commentList(data.commentList)
                 .build();
     }
 

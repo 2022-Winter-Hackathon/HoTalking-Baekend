@@ -22,6 +22,7 @@ public class MemberService {
         if(isExisted(member)) {
             throw new MemberExistException();
         }
+
         return memberRepository.save(member);
     }
 

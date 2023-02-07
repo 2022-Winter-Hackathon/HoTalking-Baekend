@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum ExceptionCode {
 
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저를 찾지 못함"),
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글을 찾지 못함"),
 
     INVALID_PERMISSION(HttpStatus.BAD_REQUEST, "유효하지 않은 권한"),
     PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않음"),

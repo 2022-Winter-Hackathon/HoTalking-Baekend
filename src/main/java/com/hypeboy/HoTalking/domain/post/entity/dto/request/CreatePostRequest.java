@@ -9,8 +9,13 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Getter
 public class CreatePostRequest {
+
+    @NotBlank
+    private String token;
+
     @NotBlank(message = "제목이 필요합니다")
     private String title;
+
     @NotBlank(message = "내용이 필요합니다")
     private String content;
 

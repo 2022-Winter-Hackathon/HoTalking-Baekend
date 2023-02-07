@@ -1,11 +1,14 @@
 package com.hypeboy.HoTalking.domain.member.domain.entity;
 
+import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
+import com.hypeboy.HoTalking.domain.post.entity.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,12 +37,14 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    /*
-    @OneToMany(mappedBy = "writer")
-    private List<Object> myPost = new ArrayList<>();
-    */
+    @OneToMany(mappedBy = "author")
+    private List<Post> postList;
+
+    @OneToMany(mappedBy = "author")
+    private List<Comment> commentList;
+
     @Builder
-    public Member(String m_id, int grade, int number, String name, String profileImage, String email, Role role, int room) {
+    public Member(String m_id, int grade, int number, String name, String profileImage, String email, Role role, int room, List<Post> postList, List<Comment> commentList) {
         this.m_id = m_id;
         this.grade = grade;
         this.number = number;
@@ -48,6 +53,8 @@ public class Member {
         this.profileImage = profileImage;
         this.email = email;
         this.role = role;
+        this.postList = postList;
+        this.commentList = commentList;
     }
 
 }

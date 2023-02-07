@@ -1,7 +1,7 @@
 package com.hypeboy.HoTalking.global.restTemplate;
 
-import com.hypeboy.HoTalking.global.error.exception.InternalServerException;
-import com.hypeboy.HoTalking.global.error.exception.TamperedCodeException;
+import com.hypeboy.HoTalking.global.error.exception.dauth.InternalServerException;
+import com.hypeboy.HoTalking.global.error.exception.dauth.TamperedCodeException;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
