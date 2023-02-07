@@ -2,6 +2,7 @@ package com.hypeboy.HoTalking.domain.post.entity.dto.request.ro;
 
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.ro.CommentRo;
+import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class PostRo {
     private String content;
 
     private String author;
+
+    private Role role;
 
     private  List<CommentRo> comments;
 

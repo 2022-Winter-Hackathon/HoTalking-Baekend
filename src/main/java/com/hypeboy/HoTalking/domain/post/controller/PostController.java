@@ -6,6 +6,7 @@ import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
 import com.hypeboy.HoTalking.domain.post.service.PostService;
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,12 +35,7 @@ public class PostController {
         log.info("{}", files);
         return postService.createPost(new CreatePostRequest(title, content, files), member);
     }
-
-    @GetMapping("/list/{page}")
-    public ResponseEntity<?> getAllPostImages(@PathVariable long page) {
-        return postService.findAllImages(page);
-    }
-
+    @ApiOperation(value = "이미지 받아오오는 컨트롤러 return byte[]")
     @GetMapping(value = "/images/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(@PathVariable long id) throws IOException {
         return postService.getImage(id);
@@ -51,9 +47,9 @@ public class PostController {
         return postService.deletePost(id);
     }
 
-    @GetMapping("/list")
-    public List<PostListRo> findAll(@RequestParam("page") Integer page) {
-        return postService.getPostAndAllImages(page);
+    @GetMapping("/{role}/list")
+    public List<PostListRo> findAll(@PathVariable("role")String role, @RequestParam("page") Integer page) {
+        return postService.getPostAndAllImages(role, page);
     }
 
     @GetMapping("")

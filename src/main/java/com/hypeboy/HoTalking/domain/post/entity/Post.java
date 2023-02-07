@@ -3,6 +3,7 @@ package com.hypeboy.HoTalking.domain.post.entity;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.image.Image;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
+import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;
 
@@ -23,11 +24,13 @@ public class Post extends BaseTimeEntity {
 
     private String title;
 
+    private Role role;
+
+    private String content;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member author;
-
-    private String content;
 
     @Builder.Default
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)

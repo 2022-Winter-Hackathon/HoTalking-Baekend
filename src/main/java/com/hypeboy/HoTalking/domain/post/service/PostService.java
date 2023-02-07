@@ -1,6 +1,5 @@
 package com.hypeboy.HoTalking.domain.post.service;
 
-import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.comment.domain.repository.CommentRepository;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.ro.CommentRo;
 import com.hypeboy.HoTalking.domain.image.ImageService;
@@ -41,9 +40,12 @@ public class PostService {
     @Transactional
     public ResponseEntity<?> createPost(CreatePostRequest request,
                                         final Member member) throws Exception {
-        final Post post = postRepository.save(Post.builder()
+        final Post post = postRepository.save(Post
+                .builder()
                 .title(request.getTitle())
                 .content(request.getContent())
+                .author(member)
+                .role(member.getRole())
                 .build());
         final List<MultipartFile> files = request.getFiles();
         System.out.println(files);
@@ -65,9 +67,9 @@ public class PostService {
         return ResponseEntity.ok("삭제 되었습니다");
     }
 
-    public List<PostListRo> getPostAndAllImages(Integer page) {
+    public List<PostListRo> getPostAndAllImages(String role, Integer page) {
         Pageable pageable = PageRequest.of(page-1, 6, Sort.Direction.ASC, "id");
-        return postRepository.findAll(pageable)
+        return postRepository.findAllByRole(pageable, role)
                 .stream()
                 .map(PostListRo::new)
                 .collect(Collectors.toList());
@@ -84,7 +86,7 @@ public class PostService {
         return PostRo.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .author(null)
+                .author(post.getAuthor().getName())
                 .comments(comments)
                 .build();
 
