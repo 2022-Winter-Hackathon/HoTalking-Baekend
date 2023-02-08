@@ -1,10 +1,8 @@
 package com.hypeboy.HoTalking.domain.issue.entity;
 
+import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class Issue {
 
@@ -22,6 +21,10 @@ public class Issue {
     private Long id;
 
     private String issueName;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member author;
 
     @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> issuePost = new HashSet<>();

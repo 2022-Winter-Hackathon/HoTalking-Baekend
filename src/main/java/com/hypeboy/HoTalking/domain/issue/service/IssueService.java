@@ -1,9 +1,11 @@
 package com.hypeboy.HoTalking.domain.issue.service;
 
+import com.hypeboy.HoTalking.domain.comment.exception.MemberNotMatchExceptioin;
 import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.issue.exception.IssueNotFoundException;
 import com.hypeboy.HoTalking.domain.issue.repository.IssueRepository;
+import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,16 @@ public class IssueService {
     }
 
 
-    public ResponseEntity<?> deleteIssue(Long id) {
+    public ResponseEntity<?> deleteIssue(final Member member, Long id) {
+        Issue issue = getIssue();
+        Member author = issue.getAuthor();
+
+        if(member.getId()== author.getId()) {
+            throw new MemberNotMatchExceptioin();
+        }
+
+        member.removeIssue(issue);
+
         issueRepository.deleteById(id);
         return ResponseEntity.ok("성공적으로 삭제 되었습니다");
     }

@@ -3,6 +3,7 @@ package com.hypeboy.HoTalking.domain.comment.service;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.comment.domain.repository.CommentRepository;
 import com.hypeboy.HoTalking.domain.comment.exception.CommentNotFoundException;
+import com.hypeboy.HoTalking.domain.comment.exception.MemberNotMatchExceptioin;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.CreateCommentRequest;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
@@ -49,12 +50,16 @@ public class CommentService {
         );
     }
 
-    public Response deleteComment(Long id) {
+    public Response deleteComment(final Member member, Long id) {
 
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
 
-        Member member = comment.getAuthor();
+        Member author = comment.getAuthor();
+
+        if(member.getId()==author.getId()) {
+            throw new MemberNotMatchExceptioin();
+        }
 
         Post post = comment.getPost();
 

@@ -23,8 +23,8 @@ public class CommentController {
 
     @AuthToken
     @DeleteMapping(value = "/delete/{id}")
-    public Response deleteComment(@PathVariable Long id) {
-        return commentService.deleteComment(id);
+    public Response deleteComment(@RequestAttribute Member member, @PathVariable Long id) {
+        return commentService.deleteComment(member, id);
     }
 
 }

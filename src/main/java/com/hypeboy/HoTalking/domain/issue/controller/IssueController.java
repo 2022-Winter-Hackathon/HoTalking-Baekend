@@ -3,6 +3,8 @@ package com.hypeboy.HoTalking.domain.issue.controller;
 import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.service.IssueService;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
+import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
+import com.hypeboy.HoTalking.global.annotation.AuthToken;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,9 +27,10 @@ public class IssueController {
         return issueService.getIssue();
     }
 
+    @AuthToken
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteIssue(@PathVariable ("id") Long id) {
-        return issueService.deleteIssue(id);
+    public ResponseEntity<?> deleteIssue(@RequestAttribute Member member, @PathVariable ("id") Long id) {
+        return issueService.deleteIssue(member, id);
     }
 
 }

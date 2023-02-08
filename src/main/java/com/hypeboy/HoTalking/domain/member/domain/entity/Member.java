@@ -2,6 +2,7 @@ package com.hypeboy.HoTalking.domain.member.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
+import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,10 @@ public class Member {
     private Role role;
 
     @Builder.Default
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    private Set<Issue> issueList = new HashSet<>();
+
+    @Builder.Default
     @JsonManagedReference
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Post> postList = new HashSet<>();
@@ -51,6 +56,15 @@ public class Member {
     @JsonManagedReference
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Comment> commentList = new HashSet<>();
+
+    public void addIssue(Issue issue) {
+        issue.setAuthor(this);
+        issueList.add(issue);
+    }
+
+    public void removeIssue(Issue issue) {
+        issueList.remove(issue);
+    }
 
     public void addPost(Post post) {
         post.setAuthor(this);
