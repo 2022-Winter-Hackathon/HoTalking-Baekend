@@ -63,13 +63,6 @@ public class MemberService {
         Set<Post> postSet = member.getPostList();
 
         for(Post po : postSet) {
-            /*
-            List<byte[]> byteImageList = new ArrayList<>();
-            for(int i = 1; i<=po.getImages().size(); i++) {
-                byte[] byteImage = postService.getImage(i);
-                byteImageList.add(byteImage);
-            }
-            */
             List<Long> imageIdList = new ArrayList<>();
             for(long i = 1; i<=po.getImages().size(); i++)
                 imageIdList.add(i);
