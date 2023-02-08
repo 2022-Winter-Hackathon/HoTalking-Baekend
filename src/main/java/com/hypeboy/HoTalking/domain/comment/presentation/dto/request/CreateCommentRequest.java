@@ -11,9 +11,6 @@ import javax.validation.constraints.NotBlank;
 public class CreateCommentRequest {
 
     @NotBlank
-    private String token;
-
-    @NotBlank
     private Long post_id;
 
     @NotBlank

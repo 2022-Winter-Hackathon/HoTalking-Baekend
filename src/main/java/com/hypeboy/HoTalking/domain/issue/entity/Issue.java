@@ -1,5 +1,7 @@
 package com.hypeboy.HoTalking.domain.issue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
 import lombok.*;
@@ -27,6 +29,7 @@ public class Issue {
     private Member author;
 
     @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Post> issuePost = new HashSet<>();
 
     public void addPost(Post post) {

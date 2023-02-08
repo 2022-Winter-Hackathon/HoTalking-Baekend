@@ -27,6 +27,6 @@ public class MemberInfo {
 
     private String email;
 
-    private Role role;
+    private String role;
 
 }

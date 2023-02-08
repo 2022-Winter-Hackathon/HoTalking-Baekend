@@ -23,7 +23,7 @@ public class MemberController {
     }
 
     @AuthToken
-    @PostMapping(value = "/info")
+    @GetMapping(value = "/info")
     public MemberInfo getMyMember(@RequestAttribute Member member) {
         return memberService.getMemberInfo(member);
     }

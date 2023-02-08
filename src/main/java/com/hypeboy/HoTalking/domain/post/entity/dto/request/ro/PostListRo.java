@@ -10,9 +10,12 @@ public class PostListRo {
 
     private String author;
 
+    private String role;
+
     public PostListRo(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.author = post.getAuthor().getName();
+        this.role = post.getAuthor().getRole().getContent();
     }
 }
