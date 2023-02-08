@@ -2,7 +2,7 @@ package com.hypeboy.HoTalking.domain.issue.service;
 
 import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
-import com.hypeboy.HoTalking.domain.issue.entity.dto.request.ro.IssueRo;
+import com.hypeboy.HoTalking.domain.issue.exception.IssueNotFoundException;
 import com.hypeboy.HoTalking.domain.issue.repository.IssueRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,11 @@ public class IssueService {
 
     private final IssueRepository issueRepository;
 
+    public ResponseEntity<?> save(Issue issue) {
+        issueRepository.save(issue);
+        return ResponseEntity.ok().body("issue 저장 성공");
+    }
+
     public ResponseEntity<?> addIssue(AddIssueRequest request) {
         Issue issue = Issue.builder()
                 .issueName(request.getIssueName())
@@ -22,10 +27,9 @@ public class IssueService {
         return ResponseEntity.ok().body("성공적으로 저장되었습니다");
     }
 
-    public IssueRo getIssue() {
-        Issue issueName = issueRepository.findById(1L).orElseThrow();
-
-        return new IssueRo(issueName.getIssueName());
+    public Issue getIssue() {
+        return issueRepository.findById(1L)
+                .orElseThrow(() -> IssueNotFoundException.EXCEPTION);
     }
 
 

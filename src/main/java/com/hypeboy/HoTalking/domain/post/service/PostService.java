@@ -3,6 +3,8 @@ package com.hypeboy.HoTalking.domain.post.service;
 import com.hypeboy.HoTalking.domain.comment.domain.repository.CommentRepository;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.ro.CommentRo;
 import com.hypeboy.HoTalking.domain.image.ImageService;
+import com.hypeboy.HoTalking.domain.issue.entity.Issue;
+import com.hypeboy.HoTalking.domain.issue.service.IssueService;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
 import com.hypeboy.HoTalking.domain.post.Repository.PostRepository;
@@ -11,11 +13,9 @@ import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
 
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostListRo;
 import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
+import com.hypeboy.HoTalking.domain.post.exception.PostNotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +37,19 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final ImageService imageService;
 
+    private final IssueService issueService;
+
     @Transactional
     public ResponseEntity<?> createPost(CreatePostRequest request,
                                         final Member member) throws Exception {
+        Issue issue = issueService.getIssue();
+
         final Post post = postRepository.save(Post
                 .builder()
                 .title(request.getTitle())
                 .content(request.getContent())
                 .author(member)
+                .issue(issue)
                 .role(member.getRole().getKey())
                 .build());
         final List<MultipartFile> files = request.getFiles();
@@ -55,7 +60,7 @@ public class PostService {
         }
 
         final Post savedPost = postRepository.save(post);
-        System.out.println("!");
+
         member.addPost(savedPost);
         memberRepository.save(member);
         return ResponseEntity.ok().build();
@@ -63,7 +68,15 @@ public class PostService {
 
 
     public ResponseEntity<?> deletePost(Long id) {
+        Post post = postRepository.findById(id)
+                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+
+        Issue issue = post.getIssue();
+        issue.removePost(post);
+        issueService.save(issue);
+
         postRepository.deleteById(id);
+
         return ResponseEntity.ok("삭제 되었습니다");
     }
 

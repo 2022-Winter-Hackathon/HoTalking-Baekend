@@ -1,5 +1,6 @@
 package com.hypeboy.HoTalking.domain.member.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
@@ -42,10 +43,12 @@ public class Member {
     private Role role;
 
     @Builder.Default
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Post> postList = new HashSet<>();
 
     @Builder.Default
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Comment> commentList = new HashSet<>();
 

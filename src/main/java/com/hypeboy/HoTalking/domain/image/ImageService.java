@@ -48,9 +48,6 @@ public class ImageService {
         return imageFile;
     }
 
-
-
-
     public List<Image> findBoards() {
         return imageRepository.findAll();
     }

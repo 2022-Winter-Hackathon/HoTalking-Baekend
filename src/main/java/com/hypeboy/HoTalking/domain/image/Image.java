@@ -1,5 +1,6 @@
 package com.hypeboy.HoTalking.domain.image;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hypeboy.HoTalking.domain.post.entity.Post;
 
 import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
@@ -20,9 +21,6 @@ public class Image extends BaseTimeEntity {
     private long id;
 
     @NotNull
-    private long boardIdx;
-
-    @NotNull
     private String originalFileName;
 
     @NotNull
@@ -31,6 +29,7 @@ public class Image extends BaseTimeEntity {
     private long fileSize;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "post_id")
     private Post post;
 

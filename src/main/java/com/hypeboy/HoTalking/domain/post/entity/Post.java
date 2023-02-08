@@ -1,15 +1,16 @@
 package com.hypeboy.HoTalking.domain.post.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.image.Image;
+import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
-import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -28,16 +29,22 @@ public class Post extends BaseTimeEntity {
 
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "issue_id")
+    private Issue issue;
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member author;
 
     @Builder.Default
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Image> images = new ArrayList<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Image> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    @Builder.Default
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Comment> comments = new HashSet<>();
 
     public void addComment(Comment comment) {
         comment.setPost(this);

@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.domain.member.presentation.dto;
+package com.hypeboy.HoTalking.domain.member.presentation.dto.response;
 
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;

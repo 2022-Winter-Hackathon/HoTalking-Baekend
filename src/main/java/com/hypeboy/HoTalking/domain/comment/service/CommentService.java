@@ -19,23 +19,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CommentService {
 
-    private final JwtUtil jwtUtil;
-
     private final MemberRepository memberRepository;
 
     private final CommentRepository commentRepository;
 
     private final PostRepository postRepository;
 
-    public Response createComment(CreateCommentRequest request) {
-
-        //Member member = jwtUtil.getMemberByToken(request.getToken());
+    public Response createComment(final Member member, CreateCommentRequest request) {
 
         Post post = postRepository.findById(request.getPost_id())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
         Comment comment = Comment.builder()
-         //       .author(member)
+                .author(member)
                 .post(post)
                 .content(request.getContent())
                 .build();
@@ -44,8 +40,8 @@ public class CommentService {
         post.addComment(comment);
         postRepository.save(post);
 
-        //member.addComment(comment);
-        //memberRepository.save(member);
+        member.addComment(comment);
+        memberRepository.save(member);
 
         return new Response(
                 HttpStatus.OK,

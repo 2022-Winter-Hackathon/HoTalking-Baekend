@@ -32,7 +32,6 @@ public class PostController {
     public ResponseEntity<?> createPost(@RequestParam(required = false) List<MultipartFile> files,
             @RequestParam String title, @RequestParam String content,
             @RequestAttribute Member member) throws Exception {
-        log.info(member.getName());
         log.info("{}", files);
         return postService.createPost(new CreatePostRequest(title, content, files), member);
     }
@@ -44,19 +43,14 @@ public class PostController {
 
     @AuthToken
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletePost(@RequestAttribute Member member, @PathVariable("id") Long id) {
         return postService.deletePost(id);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/{role}/list")
     public List<PostListRo> findAll() {
         return postService.findAll();
     }
-
-/*    @GetMapping("/{role}/list")
-    public List<PostListRo> findAll(@PathVariable("role")String role, @RequestParam("page") Integer page) {
-        return postService.getPostByRoleAndPage(role, page);
-    }*/
 
     @GetMapping("")
     private PostRo getPostById(@RequestParam Long id) {

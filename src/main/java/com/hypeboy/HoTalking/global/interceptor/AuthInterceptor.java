@@ -22,7 +22,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(!(handler instanceof HandlerMethod handlerMethod)) {
             return true;
         }
-
         if(!(handlerMethod.getMethod().isAnnotationPresent(AuthToken.class))) {
             return true;
         }
