@@ -35,6 +35,7 @@ public class PostService {
     private final MemberRepository memberRepository;
 
     private final CommentRepository commentRepository;
+
     private final ImageService imageService;
 
     private final IssueService issueService;
