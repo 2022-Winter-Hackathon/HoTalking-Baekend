@@ -47,31 +47,46 @@ public class MemberService {
                 .build();
     }
 
-    public PostInfo getPostInfo(final Post post, List<Long> list) {
-        return PostInfo.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .content(post.getContent())
-                .imageIdList(list)
-                .createdDate(post.getCreatedDate())
-                .build();
-    }
-
     public MemberProfileResponseDto getMyInfo(final Member member) {
 
         List<PostInfo> postInfoList = new ArrayList<>();
         Set<Post> postSet = member.getPostList();
 
         for(Post po : postSet) {
+
+            /*
+            List<byte[]> byteImageList = new ArrayList<>();
+            for(int i = 1; i<=po.getImages().size(); i++) {
+                byte[] byteImage = postService.getImage(i);
+                byteImageList.add(byteImage);
+            }
+            */
+
             List<Long> imageIdList = new ArrayList<>();
             for(long i = 1; i<=po.getImages().size(); i++)
                 imageIdList.add(i);
 
-            PostInfo postInfo = getPostInfo(po, imageIdList);
+            PostInfo postInfo = PostInfo.builder()
+                    .id(po.getId())
+                    .title(po.getTitle())
+                    .content(po.getContent())
+                    .imageIdList(imageIdList)
+                    .createdDate(po.getCreatedDate())
+                    .build();
             postInfoList.add(postInfo);
         }
 
-        MemberInfo memberInfo = getMemberInfo(member);
+        MemberInfo memberInfo = MemberInfo.builder()
+                .id(member.getId())
+                .uniqueId(member.getUniqueId())
+                .grade(member.getGrade())
+                .room(member.getRoom())
+                .number(member.getNumber())
+                .name(member.getName())
+                .profileImage(member.getProfileImage())
+                .email(member.getEmail())
+                .role(member.getRole())
+                .build();
 
         return MemberProfileResponseDto.builder()
                 .myMemberInfo(memberInfo)
