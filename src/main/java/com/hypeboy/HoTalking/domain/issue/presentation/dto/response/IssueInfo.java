@@ -19,8 +19,6 @@ public class IssueInfo {
 
     private String title;
 
-    private MemberInfo memberInfo;
-
-    private Set<Post> issuePost;
+    private String author;
 
 }

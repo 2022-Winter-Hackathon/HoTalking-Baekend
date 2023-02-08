@@ -19,8 +19,6 @@ public class IssueController {
 
     private final IssueService issueService;
 
-    private final MemberService memberService;
-
     @AuthToken
     @PostMapping("/add")
     public ResponseEntity<?> addIssue(@RequestAttribute Member member, @RequestBody @Validated AddIssueRequest request) {
@@ -33,8 +31,7 @@ public class IssueController {
         return IssueInfo.builder()
                 .id(issue.getId())
                 .title(issue.getIssueName())
-                .memberInfo(memberService.getMemberInfo(issue.getAuthor()))
-                .issuePost(issue.getIssuePost())
+                .author(issue.getAuthor().getName())
                 .build();
     }
 

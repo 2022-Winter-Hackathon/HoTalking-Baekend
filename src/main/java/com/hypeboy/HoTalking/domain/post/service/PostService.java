@@ -69,16 +69,18 @@ public class PostService {
     }
 
 
-    public ResponseEntity<?> deletePost(Long id, Member member) {
+    public ResponseEntity<?> deletePost(Long id, final Member member) {
 
         Post post = postRepository.findById(id).orElseThrow(
                 () -> PostNotFoundException.EXCEPTION
         );
 
-
         Issue issue = post.getIssue();
         issue.removePost(post);
         issueService.save(issue);
+
+        member.removePost(post);
+        memberRepository.save(member);
 
         postRepository.deleteById(id);
 
@@ -107,7 +109,6 @@ public class PostService {
                 .role(post.getAuthor().getRole())
                 .comments(comments)
                 .build();
-
     }
 
     public ResponseEntity<?> findAllImages(final long id) {
