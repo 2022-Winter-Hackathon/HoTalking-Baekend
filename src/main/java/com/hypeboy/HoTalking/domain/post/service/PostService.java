@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+
     private final MemberRepository memberRepository;
 
     private final CommentRepository commentRepository;
@@ -90,7 +91,7 @@ public class PostService {
 
     public PostRo getPostById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
         List<CommentRo> comments = commentRepository.findByPost_Id(id)
                 .stream().map(it -> new CommentRo(it.getId(), it.getContent()))

@@ -11,6 +11,7 @@ public enum ExceptionCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저를 찾지 못함"),
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글을 찾지 못함"),
 
+    NO_PERMISSION(HttpStatus.BAD_REQUEST, "권한이 없음"),
     INVALID_PERMISSION(HttpStatus.BAD_REQUEST, "유효하지 않은 권한"),
     PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않음"),
     MEMBER_EXIST(HttpStatus.BAD_REQUEST, "이미 멤버가 존재함"),

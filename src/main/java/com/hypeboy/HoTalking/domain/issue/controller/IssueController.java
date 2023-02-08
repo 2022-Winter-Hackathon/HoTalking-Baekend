@@ -1,9 +1,11 @@
 package com.hypeboy.HoTalking.domain.issue.controller;
 
+import com.hypeboy.HoTalking.domain.issue.controller.dto.IssueInfo;
 import com.hypeboy.HoTalking.domain.issue.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.service.IssueService;
 import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
+import com.hypeboy.HoTalking.domain.member.service.MemberService;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,23 @@ public class IssueController {
 
     private final IssueService issueService;
 
+    private final MemberService memberService;
+
+    @AuthToken
     @PostMapping("/add")
-    public ResponseEntity<?> addIssue(@RequestBody @Validated AddIssueRequest request) {
-        return issueService.addIssue(request);
+    public ResponseEntity<?> addIssue(@RequestAttribute Member member, @RequestBody @Validated AddIssueRequest request) {
+        return issueService.addIssue(member, request);
     }
 
     @GetMapping("/get")
-    public Issue getIssue() {
-        return issueService.getIssue();
+    public IssueInfo getIssue() {
+        Issue issue = issueService.getIssue();
+        return IssueInfo.builder()
+                .id(issue.getId())
+                .title(issue.getIssueName())
+                .memberInfo(memberService.getMemberInfo(issue.getAuthor()))
+                .issuePost(issue.getIssuePost())
+                .build();
     }
 
     @AuthToken
