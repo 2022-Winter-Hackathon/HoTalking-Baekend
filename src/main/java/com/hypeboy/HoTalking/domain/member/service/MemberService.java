@@ -33,6 +33,20 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public MemberInfo getMemberInfo(final Member member) {
+        return MemberInfo.builder()
+                .id(member.getId())
+                .uniqueId(member.getUniqueId())
+                .name(member.getName())
+                .role(member.getRole())
+                .email(member.getEmail())
+                .profileImage(member.getProfileImage())
+                .grade(member.getGrade())
+                .room(member.getRoom())
+                .number(member.getNumber())
+                .build();
+    }
+
     public MemberProfileResponseDto getMyInfo(final Member member) {
 
         List<PostInfo> postInfoList = new ArrayList<>();
