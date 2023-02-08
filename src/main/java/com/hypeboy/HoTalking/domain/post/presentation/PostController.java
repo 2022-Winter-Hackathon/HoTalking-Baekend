@@ -1,10 +1,10 @@
-package com.hypeboy.HoTalking.domain.post.controller;
+package com.hypeboy.HoTalking.domain.post.presentation;
 
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostListRo;
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.ro.PostListRo;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.ro.PostRo;
 import com.hypeboy.HoTalking.domain.post.service.PostService;
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.CreatePostRequest;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

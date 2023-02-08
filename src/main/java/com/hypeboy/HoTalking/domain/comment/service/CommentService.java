@@ -7,10 +7,9 @@ import com.hypeboy.HoTalking.domain.comment.exception.MemberNotMatchExceptioin;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.CreateCommentRequest;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
-import com.hypeboy.HoTalking.domain.post.Repository.PostRepository;
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.Repository.PostRepository;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import com.hypeboy.HoTalking.domain.post.exception.PostNotFoundException;
-import com.hypeboy.HoTalking.global.lib.jwt.JwtUtil;
 import com.hypeboy.HoTalking.global.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -57,7 +56,7 @@ public class CommentService {
 
         Member author = comment.getAuthor();
 
-        if(member.getId()==author.getId()) {
+        if(member.getId().equals(author.getId())) {
             throw new MemberNotMatchExceptioin();
         }
 

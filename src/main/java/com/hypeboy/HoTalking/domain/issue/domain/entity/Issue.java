@@ -1,9 +1,8 @@
-package com.hypeboy.HoTalking.domain.issue.entity;
+package com.hypeboy.HoTalking.domain.issue.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
-import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import lombok.*;
 
 import javax.persistence.*;

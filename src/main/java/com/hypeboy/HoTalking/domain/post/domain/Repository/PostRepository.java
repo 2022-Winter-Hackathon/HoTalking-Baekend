@@ -1,6 +1,6 @@
-package com.hypeboy.HoTalking.domain.post.Repository;
+package com.hypeboy.HoTalking.domain.post.domain.Repository;
 
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

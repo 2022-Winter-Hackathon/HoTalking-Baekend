@@ -1,11 +1,11 @@
 package com.hypeboy.HoTalking.domain.issue.service;
 
 import com.hypeboy.HoTalking.domain.comment.exception.MemberNotMatchExceptioin;
-import com.hypeboy.HoTalking.domain.issue.entity.Issue;
-import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
+import com.hypeboy.HoTalking.domain.issue.domain.entity.Issue;
+import com.hypeboy.HoTalking.domain.issue.presentation.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.issue.exception.IssueNotFoundException;
 import com.hypeboy.HoTalking.domain.issue.exception.NoPermissionException;
-import com.hypeboy.HoTalking.domain.issue.repository.IssueRepository;
+import com.hypeboy.HoTalking.domain.issue.domain.repository.IssueRepository;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.enums.Role;
 import lombok.AllArgsConstructor;

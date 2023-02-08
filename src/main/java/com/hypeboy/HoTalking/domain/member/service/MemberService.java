@@ -7,7 +7,7 @@ import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
 import com.hypeboy.HoTalking.domain.member.presentation.dto.response.profile.MemberInfo;
 import com.hypeboy.HoTalking.domain.member.presentation.dto.response.MemberProfileResponseDto;
 import com.hypeboy.HoTalking.domain.member.presentation.dto.response.profile.PostInfo;
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,13 +37,23 @@ public class MemberService {
         return MemberInfo.builder()
                 .id(member.getId())
                 .uniqueId(member.getUniqueId())
-                .name(member.getName())
-                .role(member.getRole().getContent())
-                .email(member.getEmail())
-                .profileImage(member.getProfileImage())
                 .grade(member.getGrade())
                 .room(member.getRoom())
                 .number(member.getNumber())
+                .name(member.getName())
+                .profileImage(member.getProfileImage())
+                .email(member.getEmail())
+                .role(member.getRole().getContent())
+                .build();
+    }
+
+    public PostInfo getPostInfo(final Post post, List<Long> imageIdList) {
+        return PostInfo.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .imageIdList(imageIdList)
+                .createdDate(post.getCreatedDate())
                 .build();
     }
 
@@ -54,39 +64,15 @@ public class MemberService {
 
         for(Post po : postSet) {
 
-            /*
-            List<byte[]> byteImageList = new ArrayList<>();
-            for(int i = 1; i<=po.getImages().size(); i++) {
-                byte[] byteImage = postService.getImage(i);
-                byteImageList.add(byteImage);
-            }
-            */
-
             List<Long> imageIdList = new ArrayList<>();
             for(long i = 1; i<=po.getImages().size(); i++)
                 imageIdList.add(i);
 
-            PostInfo postInfo = PostInfo.builder()
-                    .id(po.getId())
-                    .title(po.getTitle())
-                    .content(po.getContent())
-                    .imageIdList(imageIdList)
-                    .createdDate(po.getCreatedDate())
-                    .build();
+            PostInfo postInfo = getPostInfo(po, imageIdList);
             postInfoList.add(postInfo);
         }
 
-        MemberInfo memberInfo = MemberInfo.builder()
-                .id(member.getId())
-                .uniqueId(member.getUniqueId())
-                .grade(member.getGrade())
-                .room(member.getRoom())
-                .number(member.getNumber())
-                .name(member.getName())
-                .profileImage(member.getProfileImage())
-                .email(member.getEmail())
-                .role(member.getRole())
-                .build();
+        MemberInfo memberInfo = getMemberInfo(member);
 
         return MemberProfileResponseDto.builder()
                 .myMemberInfo(memberInfo)

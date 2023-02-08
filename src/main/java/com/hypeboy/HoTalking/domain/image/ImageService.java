@@ -1,6 +1,6 @@
 package com.hypeboy.HoTalking.domain.image;
 
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

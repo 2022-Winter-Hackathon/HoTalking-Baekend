@@ -1,16 +1,16 @@
-package com.hypeboy.HoTalking.domain.post.entity.dto.request.ro;
+package com.hypeboy.HoTalking.domain.post.presentation.dto.request.ro;
 
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import lombok.Getter;
 
 @Getter
 public class PostListRo {
-    private Long id;
-    private String title;
+    private final Long id;
+    private final String title;
 
-    private String author;
+    private final String author;
 
-    private String role;
+    private final String role;
 
     public PostListRo(Post post) {
         this.id = post.getId();

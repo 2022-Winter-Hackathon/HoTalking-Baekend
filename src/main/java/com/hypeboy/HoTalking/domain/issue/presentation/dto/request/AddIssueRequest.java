@@ -1,9 +1,8 @@
-package com.hypeboy.HoTalking.domain.issue.entity.dto.request;
+package com.hypeboy.HoTalking.domain.issue.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 

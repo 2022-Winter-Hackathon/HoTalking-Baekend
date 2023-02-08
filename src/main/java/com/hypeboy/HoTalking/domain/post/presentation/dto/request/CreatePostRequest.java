@@ -1,4 +1,4 @@
-package com.hypeboy.HoTalking.domain.post.entity.dto.request;
+package com.hypeboy.HoTalking.domain.post.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

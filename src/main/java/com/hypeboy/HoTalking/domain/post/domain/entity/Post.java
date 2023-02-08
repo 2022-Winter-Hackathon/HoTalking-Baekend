@@ -1,9 +1,9 @@
-package com.hypeboy.HoTalking.domain.post.entity;
+package com.hypeboy.HoTalking.domain.post.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hypeboy.HoTalking.domain.comment.domain.entity.Comment;
 import com.hypeboy.HoTalking.domain.image.Image;
-import com.hypeboy.HoTalking.domain.issue.entity.Issue;
+import com.hypeboy.HoTalking.domain.issue.domain.entity.Issue;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.global.jpa.BaseTimeEntity;
 import lombok.*;

@@ -1,9 +1,9 @@
-package com.hypeboy.HoTalking.domain.issue.controller;
+package com.hypeboy.HoTalking.domain.issue.presentation;
 
-import com.hypeboy.HoTalking.domain.issue.controller.dto.IssueInfo;
-import com.hypeboy.HoTalking.domain.issue.entity.Issue;
+import com.hypeboy.HoTalking.domain.issue.presentation.dto.response.IssueInfo;
+import com.hypeboy.HoTalking.domain.issue.domain.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.service.IssueService;
-import com.hypeboy.HoTalking.domain.issue.entity.dto.request.AddIssueRequest;
+import com.hypeboy.HoTalking.domain.issue.presentation.dto.request.AddIssueRequest;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.service.MemberService;
 import com.hypeboy.HoTalking.global.annotation.AuthToken;

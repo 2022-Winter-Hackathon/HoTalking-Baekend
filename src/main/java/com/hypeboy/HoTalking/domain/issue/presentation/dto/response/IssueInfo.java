@@ -1,7 +1,7 @@
-package com.hypeboy.HoTalking.domain.issue.controller.dto;
+package com.hypeboy.HoTalking.domain.issue.presentation.dto.response;
 
 import com.hypeboy.HoTalking.domain.member.presentation.dto.response.profile.MemberInfo;
-import com.hypeboy.HoTalking.domain.post.entity.Post;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,6 @@
-package com.hypeboy.HoTalking.domain.issue.repository;
+package com.hypeboy.HoTalking.domain.issue.domain.repository;
 
-import com.hypeboy.HoTalking.domain.issue.entity.Issue;
-import com.hypeboy.HoTalking.domain.issue.entity.dto.request.ro.IssueRo;
+import com.hypeboy.HoTalking.domain.issue.domain.entity.Issue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

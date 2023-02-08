@@ -3,16 +3,16 @@ package com.hypeboy.HoTalking.domain.post.service;
 import com.hypeboy.HoTalking.domain.comment.domain.repository.CommentRepository;
 import com.hypeboy.HoTalking.domain.comment.presentation.dto.request.ro.CommentRo;
 import com.hypeboy.HoTalking.domain.image.ImageService;
-import com.hypeboy.HoTalking.domain.issue.entity.Issue;
+import com.hypeboy.HoTalking.domain.issue.domain.entity.Issue;
 import com.hypeboy.HoTalking.domain.issue.service.IssueService;
 import com.hypeboy.HoTalking.domain.member.domain.entity.Member;
 import com.hypeboy.HoTalking.domain.member.domain.repository.MemberRepository;
-import com.hypeboy.HoTalking.domain.post.Repository.PostRepository;
-import com.hypeboy.HoTalking.domain.post.entity.Post;
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.CreatePostRequest;
+import com.hypeboy.HoTalking.domain.post.domain.Repository.PostRepository;
+import com.hypeboy.HoTalking.domain.post.domain.entity.Post;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.CreatePostRequest;
 
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostListRo;
-import com.hypeboy.HoTalking.domain.post.entity.dto.request.ro.PostRo;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.ro.PostListRo;
+import com.hypeboy.HoTalking.domain.post.presentation.dto.request.ro.PostRo;
 import com.hypeboy.HoTalking.domain.post.exception.PostNotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
@@ -69,7 +69,7 @@ public class PostService {
     }
 
 
-    public ResponseEntity<?> deletePost(Long id,Member member) {
+    public ResponseEntity<?> deletePost(Long id, Member member) {
 
         Post post = postRepository.findById(id).orElseThrow(
                 () -> PostNotFoundException.EXCEPTION
@@ -104,7 +104,7 @@ public class PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .author(post.getAuthor().getName())
-                .role(post.getAuthor().getRole().getContent())
+                .role(post.getAuthor().getRole())
                 .comments(comments)
                 .build();
 
