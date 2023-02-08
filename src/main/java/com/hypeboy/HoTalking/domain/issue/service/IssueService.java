@@ -27,14 +27,10 @@ public class IssueService {
     }
 
     public ResponseEntity<?> addIssue(final Member member, AddIssueRequest request) {
-        Role role = member.getRole();
-
-        if(role==Role.TEACHER || role==Role.ADMIN) {
-            throw new NoPermissionException();
-        }
 
         Issue issue = Issue.builder()
                 .issueName(request.getIssueName())
+                .author(member)
                 .build();
         issueRepository.save(issue);
 
