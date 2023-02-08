@@ -69,9 +69,12 @@ public class PostService {
     }
 
 
-    public ResponseEntity<?> deletePost(Long id) {
-        Post post = postRepository.findById(id)
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+    public ResponseEntity<?> deletePost(Long id,Member member) {
+
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> PostNotFoundException.EXCEPTION
+        );
+
 
         Issue issue = post.getIssue();
         issue.removePost(post);
@@ -94,13 +97,14 @@ public class PostService {
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
         List<CommentRo> comments = commentRepository.findByPost_Id(id)
-                .stream().map(it -> new CommentRo(it.getId(), it.getContent()))
+                .stream().map(it -> new CommentRo(it.getId(), it.getAuthor().getName(),it.getContent()))
                 .toList();
 
         return PostRo.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
                 .author(post.getAuthor().getName())
+                .role(post.getAuthor().getRole().getContent())
                 .comments(comments)
                 .build();
 

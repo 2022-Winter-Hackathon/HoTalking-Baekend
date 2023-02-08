@@ -53,7 +53,6 @@ public class ImageService {
     }
 
     public Image findBoard(Long id) {
-        return imageRepository.findById(id)
-                .orElseThrow();
+        return imageRepository.findByPost_Id(id);
     }
 }

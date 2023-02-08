@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor @NoArgsConstructor
 public class CommentRo {
     private Long id;
+
+    private String comment_author;
+
     private String comment;
 }

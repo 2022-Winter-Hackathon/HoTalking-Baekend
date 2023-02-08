@@ -38,7 +38,7 @@ public class MemberService {
                 .id(member.getId())
                 .uniqueId(member.getUniqueId())
                 .name(member.getName())
-                .role(member.getRole())
+                .role(member.getRole().getContent())
                 .email(member.getEmail())
                 .profileImage(member.getProfileImage())
                 .grade(member.getGrade())

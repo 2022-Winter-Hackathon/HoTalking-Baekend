@@ -43,17 +43,19 @@ public class PostController {
 
     @AuthToken
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePost(@RequestAttribute Member member, @PathVariable("id") Long id) {
-        return postService.deletePost(id);
+    public ResponseEntity<?> deletePost(@RequestAttribute Member member,
+                                        @PathVariable("id") Long id) {
+        return postService.deletePost(id, member);
     }
 
-    @GetMapping("/{role}/list")
+    @GetMapping("/list")
     public List<PostListRo> findAll() {
         return postService.findAll();
     }
 
-    @GetMapping("")
-    private PostRo getPostById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    private PostRo getPostById(@PathVariable("id") Long id) {
+        log.info(String.valueOf(id));
         return postService.getPostById(id);
     }
 }
